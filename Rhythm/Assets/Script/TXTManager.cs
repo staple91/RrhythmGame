@@ -13,8 +13,8 @@ enum InfoType
 }
 public class TXTManager : MonoBehaviour
 {
-    string fileName = @"\test.txt";
-    string path;
+    string fileName = @"\asd.txt";
+    public string path;
     Dictionary<string, InfoType> dic = new Dictionary<string, InfoType>();
     StreamReader reader;
 
@@ -27,10 +27,12 @@ public class TXTManager : MonoBehaviour
         dic.Add("Time", InfoType.Time);
 
         path = Application.dataPath + fileName;
-        string testString = new StreamReader(path).ReadToEnd();
-        string[] testArr = testString.Split('\n');
-        ReadHeader(testArr);
+        //string testString = new StreamReader(path).ReadToEnd();
+        //string[] testArr = testString.Split('\n');
+        
+        //ReadHeader(testArr);
         GenerateFile("asd", "dlfma", int.Parse("100"), "2" , int.Parse("60"));
+        ModifyText(path, 5, 3, new int[5] { 2, 0, 5, 0, 0 });
     }
 
     void GenerateFile(string fileName, string name, float bpm, string level, float time)
@@ -52,7 +54,6 @@ public class TXTManager : MonoBehaviour
         writer.WriteLine("Level:" + level);
         writer.WriteLine("Time" + time);
         writer.WriteLine("EndHeader");
-            Debug.Log(time);
         for (int i = 0; i < bpm / 60 / 4 * time; i++)
         {
             for (int j = 0; j < 16; j++)
@@ -63,6 +64,39 @@ public class TXTManager : MonoBehaviour
         writer.Close();
     }
 
+    public void ReadTextFile(out string[] strings , string path)
+    {
+        StreamReader streamReader = new StreamReader(path);
+        if (streamReader == null)
+        {
+            strings = null;
+            return;
+        }
+        string tempString = streamReader.ReadToEnd();
+        strings = tempString.Split('\n');
+        streamReader.Close();
+    }
+
+    void ModifyText(string path, int startPos, int pos, int[] values)
+    {
+
+        ReadTextFile(out string[] lines , path);
+
+        StreamWriter streamWriter = new StreamWriter(path, false); 
+        if (streamWriter == StreamWriter.Null)
+            return;
+        string tempLine = "#" + (pos / 16).ToString("D3") + (pos % 16).ToString("D2");
+        for (int i = 0; i < values.Length; i++)
+        {
+            tempLine += " " + values[i].ToString();
+        }
+        lines[startPos + pos] = tempLine;
+        foreach(string line in lines)
+        {
+            streamWriter.Write(line + "\n");
+        }
+        streamWriter.Close();
+    }
     void ReadHeader(string[] lines)
     {
         bool isReadingHeader = false;
