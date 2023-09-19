@@ -10,6 +10,8 @@ public class EditorManager : MonoBehaviour
     GameObject noteGroup;
     [SerializeField]
     GameObject contentUI;
+
+    List<NoteGroup> noteGrouList;
     // Start is called before the first frame update
     void Start()
     {
@@ -31,6 +33,7 @@ public class EditorManager : MonoBehaviour
         for (int i = lines.Length - 1; 0 <= i; i--)
         {
             GameObject tempNoteGroup = Instantiate(noteGroup);
+            noteGrouList.Add(tempNoteGroup.GetComponent<NoteGroup>());
             tempNoteGroup.transform.SetParent(contentUI.transform);
             tempNoteGroup.GetComponent<RectTransform>().sizeDelta = new Vector2(200, 10);
         }
