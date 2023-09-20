@@ -5,5 +5,6 @@ using UnityEngine;
 public class NoteGroup : MonoBehaviour
 {
     [SerializeField]
-    EditorNote[] notes;
+    public EditorNote[] notes;
+
 }

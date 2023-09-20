@@ -32,7 +32,7 @@ public class TXTManager : MonoBehaviour
         
         //ReadHeader(testArr);
         GenerateFile("asd", "dlfma", int.Parse("100"), "2" , int.Parse("60"));
-        ModifyText(path, 5, 3, new int[5] { 2, 0, 5, 0, 0 });
+        //ModifyText(path, 5, 3, new int[5] { 2, 0, 5, 0, 0 });
     }
 
     void GenerateFile(string fileName, string name, float bpm, string level, float time)
@@ -77,50 +77,63 @@ public class TXTManager : MonoBehaviour
         streamReader.Close();
     }
 
-    void ModifyText(string path, int startPos, int pos, int[] values)
+    public void ModifyText(string path, string[] values)
     {
 
         ReadTextFile(out string[] lines , path);
-
+        
         StreamWriter streamWriter = new StreamWriter(path, false); 
         if (streamWriter == StreamWriter.Null)
             return;
-        string tempLine = "#" + (pos / 16).ToString("D3") + (pos % 16).ToString("D2");
-        for (int i = 0; i < values.Length; i++)
+        for(int i = 5; i < lines.Length - 1; i++)
         {
-            tempLine += " " + values[i].ToString();
+            lines[i] = values[i - 5];
         }
-        lines[startPos + pos] = tempLine;
         foreach(string line in lines)
         {
+            Debug.Log("wrtie");
             streamWriter.Write(line + "\n");
         }
         streamWriter.Close();
     }
-    void ReadHeader(string[] lines)
+    string[] ReadHeader(string[] lines)
     {
         bool isReadingHeader = false;
+        List<string> headerLines = new List<string>();
         foreach (string line in lines)
         {
-            string tempLine = line.Substring(0, line.Length - 1);
-            if (line.Equals("HEADER"))
+            if(line.Length > 0)
             {
-                Debug.Log("readingHeader");
-                isReadingHeader = true;
-            }
-            if (line.Equals("ENDHEADER"))
-            {
-                Debug.Log("endOfHeader");
-                isReadingHeader = false;
-                return;
-            }
-            if (isReadingHeader)
-            {
-                string[] tempString = tempLine.Split(':');
-                if (dic.TryGetValue(tempString[0], out var infoType))
+                string tempLine = line.Substring(0, line.Length - 1);
+
+                headerLines.Add(tempLine);
+
+                if (line.Equals("HEADER"))
                 {
-                    SaveInfo(infoType, tempString[1]);
+                    Debug.Log("readingHeader");
+                    isReadingHeader = true;
                 }
+
+                if (line.Equals("ENDHEADER"))
+                {
+                    Debug.Log("endOfHeader");
+                    isReadingHeader = false;
+                    return headerLines.ToArray();
+                }
+
+            }
+        }
+        return null;
+    }
+
+    void SaveHeader(string[] headerLines)
+    {
+        foreach (string line in headerLines)
+        {
+            string[] tempString = line.Split(':');
+            if (dic.TryGetValue(tempString[0], out var infoType))
+            {
+                SaveInfo(infoType, tempString[1]);
             }
         }
     }

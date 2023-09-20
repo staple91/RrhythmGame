@@ -8,24 +8,25 @@ public class EditorNote : MonoBehaviour
     
     [SerializeField]
     int index;
-    bool isChecked = false;
 
-    public bool IsChecked
-    {
-        get { return isChecked; }
-    }
+    public bool isChecked = false;
 
+    [SerializeField]
     RawImage image;
 
     private void Start()
     {
-        image = GetComponent<RawImage>();
         image.color = new Color(1, 1, 1, 0.3f);
     }
 
     void Toggle()
     {
         isChecked = !isChecked;
+        SetColor();
+    }
+
+    public void SetColor()
+    {
         if (isChecked)
         {
             image.color = new Color(1, 1, 1, 1);

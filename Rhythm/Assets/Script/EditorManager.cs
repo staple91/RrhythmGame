@@ -11,7 +11,7 @@ public class EditorManager : MonoBehaviour
     [SerializeField]
     GameObject contentUI;
 
-    List<NoteGroup> noteGrouList;
+    Queue<NoteGroup> noteGroupQueue = new Queue<NoteGroup>();
     // Start is called before the first frame update
     void Start()
     {
@@ -29,13 +29,58 @@ public class EditorManager : MonoBehaviour
     void InitEditor(string path)
     {
         t.ReadTextFile(out string[] lines, path);
+
         contentUI.GetComponent<RectTransform>().sizeDelta = new Vector2(0, 20 * lines.Length);
-        for (int i = lines.Length - 1; 0 <= i; i--)
+        for (int i = 0; i < lines.Length; i++)
         {
-            GameObject tempNoteGroup = Instantiate(noteGroup);
-            noteGrouList.Add(tempNoteGroup.GetComponent<NoteGroup>());
-            tempNoteGroup.transform.SetParent(contentUI.transform);
-            tempNoteGroup.GetComponent<RectTransform>().sizeDelta = new Vector2(200, 10);
+            if (lines[i][0] == '#')
+            {
+                NoteGroup tempNoteGroup = Instantiate(noteGroup).GetComponent<NoteGroup>();
+                for (int j = 0; j < tempNoteGroup.notes.Length - 1; j++)
+                {
+
+                    string[] tempLine = lines[i].Split(" ");
+                    if (tempLine[j + 1] == "0")
+                    {
+                        tempNoteGroup.notes[j].isChecked = false;
+                        tempNoteGroup.notes[j].SetColor();
+                    }
+                    else
+                    {
+                        tempNoteGroup.notes[j].isChecked = true;
+                        tempNoteGroup.notes[j].SetColor();
+                    }
+
+                }
+                noteGroupQueue.Enqueue(tempNoteGroup);
+
+                tempNoteGroup.gameObject.transform.SetParent(contentUI.transform);
+                tempNoteGroup.gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(200, 10);
+            }
         }
+    }
+
+    public void SaveLines()
+    {
+        List<string> resultStringList = new List<string>();
+        int index = 0;
+        foreach(NoteGroup noteGroup in noteGroupQueue)
+        {
+            string tempString = "#"+(index / 16).ToString("D3") + (index % 16).ToString("D2") ;
+            for (int i = 0; i < noteGroup.notes.Length; i++)
+            {
+                if(noteGroup.notes[i].isChecked)
+                {
+                    tempString += " 1";
+                }
+                else
+                {
+                    tempString += " 0";
+                }
+            }
+            resultStringList.Add(tempString);
+            index++;
+        }
+        t.ModifyText(t.path, resultStringList.ToArray());
     }
 }

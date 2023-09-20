@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8226862783385345587}
   - component: {fileID: 3738041955534073729}
   - component: {fileID: 5762041837791240331}
+  - component: {fileID: 7357105542827842301}
   m_Layer: 5
   m_Name: NoteGroupCanvas
   m_TagString: Untagged
@@ -133,6 +134,24 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &7357105542827842301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2013804399919930486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72c8c13ef40599f46ac7435fec858180, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  notes:
+  - {fileID: 6603969001644224391}
+  - {fileID: 2610201802484600600}
+  - {fileID: 6230416614322795128}
+  - {fileID: 7337590047863082472}
+  - {fileID: 6328305242804544934}
 --- !u!1 &3177725663992344081
 GameObject:
   m_ObjectHideFlags: 0
@@ -276,6 +295,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   index: 0
+  isChecked: 0
+  image: {fileID: 9217235401099345636}
 --- !u!1 &4563936006885380977
 GameObject:
   m_ObjectHideFlags: 0
@@ -419,6 +440,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   index: 2
+  isChecked: 0
+  image: {fileID: 7825606052511809907}
 --- !u!1 &6388725251720198204
 GameObject:
   m_ObjectHideFlags: 0
@@ -562,6 +585,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   index: 3
+  isChecked: 0
+  image: {fileID: 4964786679053927102}
 --- !u!1 &8744286042051611848
 GameObject:
   m_ObjectHideFlags: 0
@@ -705,6 +730,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   index: 1
+  isChecked: 0
+  image: {fileID: 357911529431770556}
 --- !u!1 &8917179716247971733
 GameObject:
   m_ObjectHideFlags: 0
@@ -848,3 +875,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   index: 4
+  isChecked: 0
+  image: {fileID: 705343514914226683}
