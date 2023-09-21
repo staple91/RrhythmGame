@@ -74,6 +74,10 @@ public class TXTManager : MonoBehaviour
         }
         string tempString = streamReader.ReadToEnd();
         strings = tempString.Split('\n');
+        for (int i = 0; i < strings.Length; i++)
+        {
+            strings[i] = strings[i].Substring(0, strings[i].Length - 1);
+        }
         streamReader.Close();
     }
 
@@ -85,14 +89,19 @@ public class TXTManager : MonoBehaviour
         StreamWriter streamWriter = new StreamWriter(path, false); 
         if (streamWriter == StreamWriter.Null)
             return;
-        for(int i = 5; i < lines.Length - 1; i++)
+        Debug.Log(lines.Length + "+" + values.Length);
+        for(int i = 5; i < lines.Length; i++)
         {
             lines[i] = values[i - 5];
         }
         foreach(string line in lines)
         {
             Debug.Log("wrtie");
-            streamWriter.Write(line + "\n");
+
+            if (line != lines[lines.Length - 1])
+                streamWriter.WriteLine(line);
+            else
+                streamWriter.Write(line);
         }
         streamWriter.Close();
     }
@@ -104,9 +113,8 @@ public class TXTManager : MonoBehaviour
         {
             if(line.Length > 0)
             {
-                string tempLine = line.Substring(0, line.Length - 1);
 
-                headerLines.Add(tempLine);
+                headerLines.Add(line);
 
                 if (line.Equals("HEADER"))
                 {
@@ -125,7 +133,7 @@ public class TXTManager : MonoBehaviour
         }
         return null;
     }
-
+    // SaveHeader(ReadHeader(string[]))
     void SaveHeader(string[] headerLines)
     {
         foreach (string line in headerLines)

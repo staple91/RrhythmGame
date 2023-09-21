@@ -17,6 +17,7 @@ public class EditorNote : MonoBehaviour
     private void Start()
     {
         image.color = new Color(1, 1, 1, 0.3f);
+        SetColor();
     }
 
     void Toggle()

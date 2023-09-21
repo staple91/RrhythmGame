@@ -23,39 +23,41 @@ public class EditorManager : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.A))
         {
-            InitEditor(t.path);
+            LoadEditor(t.path);
         }
     }
-    void InitEditor(string path)
+    void LoadEditor(string path)
     {
         t.ReadTextFile(out string[] lines, path);
 
         contentUI.GetComponent<RectTransform>().sizeDelta = new Vector2(0, 20 * lines.Length);
         for (int i = 0; i < lines.Length; i++)
         {
-            if (lines[i][0] == '#')
+            if(lines[i].Length > 0)
             {
-                NoteGroup tempNoteGroup = Instantiate(noteGroup).GetComponent<NoteGroup>();
-                for (int j = 0; j < tempNoteGroup.notes.Length - 1; j++)
+
+                if (lines[i][0] == '#')
                 {
-
-                    string[] tempLine = lines[i].Split(" ");
-                    if (tempLine[j + 1] == "0")
+                    NoteGroup tempNoteGroup = Instantiate(noteGroup).GetComponent<NoteGroup>();
+                    for (int j = 0; j < tempNoteGroup.notes.Length; j++)
                     {
-                        tempNoteGroup.notes[j].isChecked = false;
-                        tempNoteGroup.notes[j].SetColor();
-                    }
-                    else
-                    {
-                        tempNoteGroup.notes[j].isChecked = true;
-                        tempNoteGroup.notes[j].SetColor();
-                    }
 
+                        string[] tempLine = lines[i].Split(" ");
+                        if (tempLine[j + 1].Contains("0"))
+                        {
+                            tempNoteGroup.notes[j].isChecked = false;
+                        }
+                        else
+                        {
+                            tempNoteGroup.notes[j].isChecked = true;
+                        }
+
+                    }
+                    noteGroupQueue.Enqueue(tempNoteGroup);
+
+                    tempNoteGroup.gameObject.transform.SetParent(contentUI.transform);
+                    tempNoteGroup.gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(200, 10);
                 }
-                noteGroupQueue.Enqueue(tempNoteGroup);
-
-                tempNoteGroup.gameObject.transform.SetParent(contentUI.transform);
-                tempNoteGroup.gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(200, 10);
             }
         }
     }
