@@ -39,10 +39,10 @@ public class EditorManager : MonoBehaviour
                 if (lines[i][0] == '#')
                 {
                     NoteGroup tempNoteGroup = Instantiate(noteGroup).GetComponent<NoteGroup>();
+                    string[] tempLine = lines[i].Split(" ");
                     for (int j = 0; j < tempNoteGroup.notes.Length; j++)
                     {
 
-                        string[] tempLine = lines[i].Split(" ");
                         if (tempLine[j + 1].Contains("0"))
                         {
                             tempNoteGroup.notes[j].isChecked = false;

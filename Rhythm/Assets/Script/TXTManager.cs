@@ -26,7 +26,7 @@ public class TXTManager : MonoBehaviour
         dic.Add("Level", InfoType.Level);
         dic.Add("Time", InfoType.Time);
 
-        path = Application.dataPath + fileName;
+        path = Application.streamingAssetsPath + fileName;
         //string testString = new StreamReader(path).ReadToEnd();
         //string[] testArr = testString.Split('\n');
         
@@ -37,7 +37,7 @@ public class TXTManager : MonoBehaviour
 
     void GenerateFile(string fileName, string name, float bpm, string level, float time)
     {
-        FileInfo fi = new FileInfo(Application.dataPath + @"\" + fileName + ".txt");
+        FileInfo fi = new FileInfo(Application.streamingAssetsPath + @"\" + fileName + ".txt");
         StreamWriter writer;
         if (!fi.Exists)
         {
@@ -52,13 +52,16 @@ public class TXTManager : MonoBehaviour
         writer.WriteLine("Name:" + name);
         writer.WriteLine("Bpm:" + bpm);
         writer.WriteLine("Level:" + level);
-        writer.WriteLine("Time" + time);
+        writer.WriteLine("Time:" + time);
         writer.WriteLine("EndHeader");
         for (int i = 0; i < bpm / 60 / 4 * time; i++)
         {
             for (int j = 0; j < 16; j++)
             {
-                writer.WriteLine("#" + i.ToString("D3") + j.ToString("D2") + " 0 0 0 0 0");
+                if (i == (bpm / 60 / 4 * time - 1) && j == 15)
+                    writer.Write("#" + i.ToString("D3") + j.ToString("D2") + " 0 0 0 0 0");
+                else
+                    writer.WriteLine("#" + i.ToString("D3") + j.ToString("D2") + " 0 0 0 0 0");
             }
         }
         writer.Close();
@@ -90,9 +93,9 @@ public class TXTManager : MonoBehaviour
         if (streamWriter == StreamWriter.Null)
             return;
         Debug.Log(lines.Length + "+" + values.Length);
-        for(int i = 5; i < lines.Length; i++)
+        for(int i = 0; i < values.Length; i++)
         {
-            lines[i] = values[i - 5];
+            lines[i + 6] = values[i];
         }
         foreach(string line in lines)
         {
