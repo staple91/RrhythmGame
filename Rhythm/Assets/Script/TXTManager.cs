@@ -77,7 +77,7 @@ public class TXTManager : MonoBehaviour
         }
         string tempString = streamReader.ReadToEnd();
         strings = tempString.Split('\n');
-        for (int i = 0; i < strings.Length; i++)
+        for (int i = 0; i < strings.Length - 1  ; i++) // 마지막줄은 writeLine을 사용하지 않기 때문에 마지막줄 전 까지만 끝문자를 잘라줌.
         {
             strings[i] = strings[i].Substring(0, strings[i].Length - 1);
         }
