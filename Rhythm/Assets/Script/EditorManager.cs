@@ -54,7 +54,6 @@ public class EditorManager : MonoBehaviour
 
                     }
                     noteGroupQueue.Enqueue(tempNoteGroup);
-
                     tempNoteGroup.gameObject.transform.SetParent(contentUI.transform);
                     tempNoteGroup.gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(200, 10);
                 }

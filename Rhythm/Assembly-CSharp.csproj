@@ -59,9 +59,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Script\EditorNote.cs" />
+    <Compile Include="Assets\Script\NoteSpawner.cs" />
     <Compile Include="Assets\Script\TXTManager.cs" />
     <Compile Include="Assets\Script\EditorManager.cs" />
     <Compile Include="Assets\Script\NoteGroup.cs" />
+    <Compile Include="Assets\Script\Note.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
