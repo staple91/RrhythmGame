@@ -5,14 +5,14 @@ using UnityEngine.UI;
 
 public class EditorNote : MonoBehaviour
 {
-    
     [SerializeField]
     int index;
 
-    public bool isChecked = false;
 
     [SerializeField]
     RawImage image;
+
+    public bool isChecked = false;
 
     private void Start()
     {
@@ -39,6 +39,9 @@ public class EditorNote : MonoBehaviour
     }
     public void OnClickNote()
     {
+        EditorManager.redoButtonDelStack.Clear();
+        EditorManager.undoButtonDelStack.Push(this.Toggle);
+        
         Toggle();
     }
 }

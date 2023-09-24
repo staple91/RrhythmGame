@@ -12,6 +12,14 @@ public class EditorManager : MonoBehaviour
     GameObject contentUI;
 
     Queue<NoteGroup> noteGroupQueue = new Queue<NoteGroup>();
+
+
+    public delegate void OnClickEditorButtonDel();
+
+    public static Stack<OnClickEditorButtonDel> undoButtonDelStack = new Stack<OnClickEditorButtonDel>();
+    public static Stack<OnClickEditorButtonDel> redoButtonDelStack = new Stack<OnClickEditorButtonDel>();
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -83,5 +91,22 @@ public class EditorManager : MonoBehaviour
             index++;
         }
         t.ModifyText(t.path, resultStringList.ToArray());
+    }
+
+    public void UndoNoteClick()
+    {
+        if (undoButtonDelStack.Count > 0)
+        {
+            redoButtonDelStack.Push(undoButtonDelStack.Peek());
+            undoButtonDelStack.Pop()();
+        }
+    }
+    public void RedoNoteClick()
+    {
+        if(redoButtonDelStack.Count > 0)
+        {
+            undoButtonDelStack.Push(redoButtonDelStack.Peek());
+            redoButtonDelStack.Pop()();
+        }
     }
 }

@@ -27,12 +27,10 @@ public class TXTManager : MonoBehaviour
         dic.Add("Time", InfoType.Time);
 
         path = Application.streamingAssetsPath + fileName;
-        //string testString = new StreamReader(path).ReadToEnd();
-        //string[] testArr = testString.Split('\n');
         
-        //ReadHeader(testArr);
         GenerateFile("asd", "dlfma", int.Parse("100"), "2" , int.Parse("60"));
-        //ModifyText(path, 5, 3, new int[5] { 2, 0, 5, 0, 0 });
+        ReadTextFile(out var test, path);
+        ReadHeader(test);
     }
 
     void GenerateFile(string fileName, string name, float bpm, string level, float time)
@@ -48,12 +46,12 @@ public class TXTManager : MonoBehaviour
             Debug.LogError("파일이 이미 존재함");
             return;
         }
-        writer.WriteLine("Header");
+        writer.WriteLine("HEADER");
         writer.WriteLine("Name:" + name);
         writer.WriteLine("Bpm:" + bpm);
         writer.WriteLine("Level:" + level);
         writer.WriteLine("Time:" + time);
-        writer.WriteLine("EndHeader");
+        writer.WriteLine("ENDHEADER");
         for (int i = 0; i < bpm / 60 / 4 * time; i++)
         {
             for (int j = 0; j < 16; j++)
@@ -92,15 +90,12 @@ public class TXTManager : MonoBehaviour
         StreamWriter streamWriter = new StreamWriter(path, false); 
         if (streamWriter == StreamWriter.Null)
             return;
-        Debug.Log(lines.Length + "+" + values.Length);
         for(int i = 0; i < values.Length; i++)
         {
             lines[i + 6] = values[i];
         }
         foreach(string line in lines)
         {
-            Debug.Log("wrtie");
-
             if (line != lines[lines.Length - 1])
                 streamWriter.WriteLine(line);
             else
@@ -110,27 +105,24 @@ public class TXTManager : MonoBehaviour
     }
     string[] ReadHeader(string[] lines)
     {
-        bool isReadingHeader = false;
         List<string> headerLines = new List<string>();
         foreach (string line in lines)
         {
-            if(line.Length > 0)
+            if (line.Length > 0)
             {
-
                 headerLines.Add(line);
-
-                if (line.Equals("HEADER"))
-                {
-                    Debug.Log("readingHeader");
-                    isReadingHeader = true;
-                }
-
                 if (line.Equals("ENDHEADER"))
                 {
                     Debug.Log("endOfHeader");
-                    isReadingHeader = false;
+                    SaveHeader(headerLines.ToArray());
                     return headerLines.ToArray();
                 }
+                if (line.Equals("HEADER"))
+                {
+                    Debug.Log("readingHeader");
+                }
+
+                
 
             }
         }
