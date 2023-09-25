@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public struct SongInfo
+public struct SongInfo 
 {
     public string name;
     public int bpm;
@@ -13,6 +13,7 @@ public struct SongInfo
 public class GameManager : Singleton<GameManager>
 {
     public SongInfo songInfo;
+    public int score = 0;
     
     protected override void Awake()
     {
@@ -28,5 +29,11 @@ public class GameManager : Singleton<GameManager>
     void Update()
     {
         
+    }
+
+    void Init()
+    {
+        score = 0;
+        songInfo = new SongInfo();
     }
 }
