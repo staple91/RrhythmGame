@@ -10,8 +10,13 @@ public class EditorManager : MonoBehaviour
     GameObject noteGroup;
     [SerializeField]
     GameObject contentUI;
+    [SerializeField]
+    GameObject divideUI;
+
 
     Queue<NoteGroup> noteGroupQueue = new Queue<NoteGroup>();
+
+
 
 
     public delegate void OnClickEditorButtonDel();
@@ -38,7 +43,7 @@ public class EditorManager : MonoBehaviour
     {
         t.ReadTextFile(out string[] lines, path);
 
-        contentUI.GetComponent<RectTransform>().sizeDelta = new Vector2(0, 20 * lines.Length);
+        contentUI.GetComponent<RectTransform>().sizeDelta = new Vector2(0, 20 * lines.Length + (5 * lines.Length) / 16); // 사이즈 10 top padding 5 bottonpadding 5
         for (int i = 0; i < lines.Length; i++)
         {
             if(lines[i].Length > 0)
@@ -47,6 +52,8 @@ public class EditorManager : MonoBehaviour
                 if (lines[i][0] == '#')
                 {
                     NoteGroup tempNoteGroup = Instantiate(noteGroup).GetComponent<NoteGroup>();
+                    if ((i - 6) % 16 == 0) // 6 = 헤더라인수
+                        Instantiate(divideUI).transform.SetParent(contentUI.transform);
                     string[] tempLine = lines[i].Split(" ");
                     for (int j = 0; j < tempNoteGroup.notes.Length; j++)
                     {
@@ -63,7 +70,7 @@ public class EditorManager : MonoBehaviour
                     }
                     noteGroupQueue.Enqueue(tempNoteGroup);
                     tempNoteGroup.gameObject.transform.SetParent(contentUI.transform);
-                    tempNoteGroup.gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(200, 10);
+                    //tempNoteGroup.gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(200, 10);
                 }
             }
         }

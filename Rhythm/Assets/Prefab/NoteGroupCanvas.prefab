@@ -125,7 +125,7 @@ MonoBehaviour:
     m_Right: 70
     m_Top: 0
     m_Bottom: 0
-  m_ChildAlignment: 1
+  m_ChildAlignment: 4
   m_Spacing: 37.13
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
@@ -295,8 +295,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   index: 0
-  isChecked: 0
   image: {fileID: 9217235401099345636}
+  isChecked: 0
 --- !u!1 &4563936006885380977
 GameObject:
   m_ObjectHideFlags: 0
@@ -440,8 +440,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   index: 2
-  isChecked: 0
   image: {fileID: 7825606052511809907}
+  isChecked: 0
 --- !u!1 &6388725251720198204
 GameObject:
   m_ObjectHideFlags: 0
@@ -585,8 +585,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   index: 3
-  isChecked: 0
   image: {fileID: 4964786679053927102}
+  isChecked: 0
 --- !u!1 &8744286042051611848
 GameObject:
   m_ObjectHideFlags: 0
@@ -730,8 +730,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   index: 1
-  isChecked: 0
   image: {fileID: 357911529431770556}
+  isChecked: 0
 --- !u!1 &8917179716247971733
 GameObject:
   m_ObjectHideFlags: 0
@@ -875,5 +875,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   index: 4
-  isChecked: 0
   image: {fileID: 705343514914226683}
+  isChecked: 0
