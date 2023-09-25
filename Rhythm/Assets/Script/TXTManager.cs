@@ -28,7 +28,7 @@ public class TXTManager : MonoBehaviour
 
         path = Application.streamingAssetsPath + fileName;
         
-        GenerateFile("asd", "dlfma", int.Parse("100"), "2" , int.Parse("60"));
+        GenerateFile("asd", "dlfma", int.Parse("100"), "2" , int.Parse("30"));
         ReadTextFile(out var test, path);
         ReadHeader(test);
     }
@@ -52,19 +52,19 @@ public class TXTManager : MonoBehaviour
         writer.WriteLine("Level:" + level);
         writer.WriteLine("Time:" + time);
         writer.WriteLine("ENDHEADER");
-        for (int i = 0; i < bpm / 60 / 4 * time; i++)
+        for (int i = 0; i < bpm / 60 * time; i++)
         {
             for (int j = 0; j < 16; j++)
             {
-                if (i == (bpm / 60 / 4 * time - 1) && j == 15)
-                    writer.Write("#" + i.ToString("D3") + j.ToString("D2") + " 0 0 0 0 0");
+                if (i == (bpm / 60 * time - 1) && j == 15)
+                    writer.Write("#" + i.ToString("D3") + j.ToString("D2") + " 0 0 0 0 1");
                 else
-                    writer.WriteLine("#" + i.ToString("D3") + j.ToString("D2") + " 0 0 0 0 0");
+                    writer.WriteLine("#" + i.ToString("D3") + j.ToString("D2") + " 0 0 0 0 1");
             }
         }
         writer.Close();
     }
-
+    // 
     public void ReadTextFile(out string[] strings , string path)
     {
         StreamReader streamReader = new StreamReader(path);
@@ -131,26 +131,33 @@ public class TXTManager : MonoBehaviour
     // SaveHeader(ReadHeader(string[]))
     void SaveHeader(string[] headerLines)
     {
+        SongInfo tempSongInfo = new SongInfo();
         foreach (string line in headerLines)
         {
             string[] tempString = line.Split(':');
             if (dic.TryGetValue(tempString[0], out var infoType))
             {
-                SaveInfo(infoType, tempString[1]);
+                SaveInfo(ref tempSongInfo, infoType, tempString[1]);
             }
         }
+        GameManager.Instance.songInfo = tempSongInfo;
     }
    
-    void SaveInfo(InfoType infoType, string value)
+    void SaveInfo(ref SongInfo songInfo, InfoType infoType, string value)
     {
         switch(infoType)
         {
             case InfoType.Name:
-                // 저장해주는 구문
+                songInfo.name = value;
                 break;
             case InfoType.Bpm:
+                songInfo.bpm = int.Parse(value);
                 break;
             case InfoType.Level:
+                songInfo.level = int.Parse(value);
+                break;
+            case InfoType.Time:
+                songInfo.time = int.Parse(value);
                 break;
         }
     }

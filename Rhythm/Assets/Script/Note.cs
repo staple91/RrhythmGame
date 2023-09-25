@@ -7,7 +7,7 @@ public class Note : MonoBehaviour
     [SerializeField]
     Vector3 dir;
     [SerializeField]
-    float speed;
+    public float speed;
 
     private void Update()
     {
