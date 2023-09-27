@@ -361,13 +361,15 @@
 "Assets/Script/EditorManager.cs"
 "Assets/Script/EditorNote.cs"
 "Assets/Script/GameManager.cs"
-"Assets/Script/Judge.cs"
+"Assets/Script/JudgeComponent.cs"
 "Assets/Script/JudgeManager.cs"
 "Assets/Script/Note.cs"
 "Assets/Script/NoteGroup.cs"
 "Assets/Script/NoteSpawner.cs"
 "Assets/Script/Singleton.cs"
 "Assets/Script/TXTManager.cs"
+"Assets/Script/UIComponent.cs"
+"Assets/Script/UIManager.cs"
 -langversion:9.0
 
 /deterministic

@@ -14,10 +14,18 @@ public class NoteSpawner : MonoBehaviour
     [SerializeField]
     TXTManager t;
 
+
+    public static List<Queue<Note>> noteQueueList = new List<Queue<Note>>();
+
     string[] noteArr;
+
     private void Start()
     {
         t.ReadTextFile(out noteArr, t.path);
+        for (int i = 0; i < 5; i++) // 5 = 라인수
+        {
+            noteQueueList.Add(new Queue<Note>());
+        }
         StartCoroutine(SpawnNote());
     }
 
@@ -38,7 +46,7 @@ public class NoteSpawner : MonoBehaviour
                 }
                 else
                 {
-                    Instantiate(note, spawnPoint[j - 1]); // TODO:추후 오브젝트풀 바꿔주기
+                    noteQueueList[i].Enqueue(Instantiate(note, spawnPoint[j - 1]).GetComponent<Note>()); // TODO:추후 오브젝트풀 바꿔주기
                 }
                 
             }

@@ -13,7 +13,7 @@ public struct SongInfo
 public class GameManager : Singleton<GameManager>
 {
     public SongInfo songInfo;
-    public int score = 0;
+    public int combo = 0;
     
     protected override void Awake()
     {
@@ -33,7 +33,7 @@ public class GameManager : Singleton<GameManager>
 
     void Init()
     {
-        score = 0;
+        combo = 0;
         songInfo = new SongInfo();
     }
 }
