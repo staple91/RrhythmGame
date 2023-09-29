@@ -70,6 +70,7 @@
     <Compile Include="Assets\Script\UIManager.cs" />
     <Compile Include="Assets\Script\NoteGroup.cs" />
     <Compile Include="Assets\Script\Note.cs" />
+    <Compile Include="Assets\Script\SongInfoData.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

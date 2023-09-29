@@ -367,6 +367,7 @@
 "Assets/Script/NoteGroup.cs"
 "Assets/Script/NoteSpawner.cs"
 "Assets/Script/Singleton.cs"
+"Assets/Script/SongInfoData.cs"
 "Assets/Script/TXTManager.cs"
 "Assets/Script/UIComponent.cs"
 "Assets/Script/UIManager.cs"

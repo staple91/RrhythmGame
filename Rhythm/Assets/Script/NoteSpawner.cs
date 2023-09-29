@@ -36,7 +36,6 @@ public class NoteSpawner : MonoBehaviour
         // 6 = 헤더길이
         for (int i = 6; i < noteArr.Length; i++)
         {
-            Debug.Log(Time.time);
             string[] tempLine = noteArr[i].Split(" ");
             for (int j = 1; j < tempLine.Length; j++)
             {
@@ -46,7 +45,7 @@ public class NoteSpawner : MonoBehaviour
                 }
                 else
                 {
-                    noteQueueList[i].Enqueue(Instantiate(note, spawnPoint[j - 1]).GetComponent<Note>()); // TODO:추후 오브젝트풀 바꿔주기
+                    noteQueueList[j - 1].Enqueue(Instantiate(note, spawnPoint[j - 1]).GetComponent<Note>()); // TODO:추후 오브젝트풀 바꿔주기
                 }
                 
             }

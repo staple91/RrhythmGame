@@ -8,6 +8,7 @@ public struct SongInfo
     public int bpm;
     public int level;
     public int time;
+    public string path;
 }
 
 public class GameManager : Singleton<GameManager>

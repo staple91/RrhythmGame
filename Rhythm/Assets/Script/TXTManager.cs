@@ -16,7 +16,9 @@ public class TXTManager : MonoBehaviour
     string fileName = @"\asd.txt";
     public string path;
     Dictionary<string, InfoType> dic = new Dictionary<string, InfoType>();
-    StreamReader reader;
+
+    [SerializeField]
+    SongInfoData songInfoData;
 
     // Start is called before the first frame update
     void Start()
@@ -26,7 +28,7 @@ public class TXTManager : MonoBehaviour
         dic.Add("Level", InfoType.Level);
         dic.Add("Time", InfoType.Time);
 
-        path = Application.streamingAssetsPath + fileName;
+        path = Application.streamingAssetsPath + @"\" + "asd" + ".txt";
         
         GenerateFile("asd", "dlfma", int.Parse("100"), "2" , int.Parse("30"));
         ReadTextFile(out var test, path);
@@ -57,9 +59,9 @@ public class TXTManager : MonoBehaviour
             for (int j = 0; j < 16; j++)
             {
                 if (i == (bpm / 60 * time - 1) && j == 15)
-                    writer.Write("#" + i.ToString("D3") + j.ToString("D2") + " 0 0 0 0 1");
+                    writer.Write("#" + i.ToString("D3") + j.ToString("D2") + " 0 0 0 0 0");
                 else
-                    writer.WriteLine("#" + i.ToString("D3") + j.ToString("D2") + " 0 0 0 0 1");
+                    writer.WriteLine("#" + i.ToString("D3") + j.ToString("D2") + " 0 0 0 0 0");
             }
         }
         writer.Close();
@@ -145,6 +147,13 @@ public class TXTManager : MonoBehaviour
    
     void SaveInfo(ref SongInfo songInfo, InfoType infoType, string value)
     {
+        foreach(SongInfo tempSongInfo in songInfoData.songInfos)
+        {
+            if (tempSongInfo.path == path)
+                return;
+        }
+
+        songInfo.path = path;
         switch(infoType)
         {
             case InfoType.Name:

@@ -20,32 +20,77 @@ public interface IJudgeable
 public class JudgeManager : MonoBehaviour
 {
 
+    const float perfectRange = 10.0f;
+    const float greatRange = 30.0f;
+    const float goodRange = 50.0f;
+    const float badRange = 70.0f;
+    const float missRange = 100.0f;
+
+    public JudgeNode judgeNode = null;
+    
     [SerializeField]
     JudgeComponent[] judges;
-
-    float CalcDist(int index)
+    void InitNodeList()
     {
-        return (NoteSpawner.noteQueueList[index].Peek().gameObject.transform.position - judges[index].transform.position).magnitude;
+        judgeNode = new JudgeNode(perfectRange, Result.Perfect);
+        judgeNode.SetNextNode(new JudgeNode(greatRange, Result.Great).
+            SetNextNode(new JudgeNode(goodRange, Result.Good).
+            SetNextNode(new JudgeNode(badRange,Result.Bad).
+            SetNextNode(new JudgeNode(missRange,Result.Miss)))));
+        Debug.Log(judgeNode.nextNode.result);
+    }
+    private void Start()
+    {
+        InitNodeList();
+        foreach (JudgeComponent judge in judges)
+        {
+            judge.judgeManager = this;
+        }
+    }
+
+    bool TryCalcDist(int index, out float dist)
+    {
+        if(NoteSpawner.noteQueueList[index].Count > 0)
+        {
+            dist = (NoteSpawner.noteQueueList[index].Peek().gameObject.transform.position - judges[index].transform.position).magnitude;
+            return true;
+        }
+        else
+        {
+            dist = 404;
+            return false;
+        }
+
     }
     void OnFirstButton()
     {
-        judges[0].Judge(CalcDist(0));
+        if(TryCalcDist(0, out float tempDist))
+            judges[0].Judge(tempDist);
+        Debug.Log(judges[0].Judge(tempDist));
     }
     void OnSecondButton()
     {
-        judges[1].Judge(CalcDist(1));
+        if (TryCalcDist(1, out float tempDist))
+            judges[0].Judge(tempDist);
+        Debug.Log(judges[1].Judge(tempDist));
     }
     void OnThirdButton()
     {
-        judges[2].Judge(CalcDist(2));
+        if (TryCalcDist(2, out float tempDist))
+            judges[0].Judge(tempDist);
+        Debug.Log(judges[2].Judge(tempDist));
     }
     void OnForthButton()
     {
-        judges[3].Judge(CalcDist(3));
+        if (TryCalcDist(3, out float tempDist))
+            judges[0].Judge(tempDist);
+        Debug.Log(judges[3].Judge(tempDist));
     }
     void OnFifthButton()
     {
-        judges[4].Judge(CalcDist(4));
+        if (TryCalcDist(4, out float tempDist))
+            judges[0].Judge(tempDist);
+        Debug.Log(judges[4].Judge(tempDist));
     }
 
 }
