@@ -5,8 +5,6 @@ using UnityEngine;
 public class EditorManager : MonoBehaviour
 {
     [SerializeField]
-    TXTManager t;
-    [SerializeField]
     GameObject noteGroup;
     [SerializeField]
     GameObject contentUI;
@@ -36,12 +34,12 @@ public class EditorManager : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.A))
         {
-            LoadEditor(t.path);
+            LoadEditor(TXTManager.Instance.path);
         }
     }
     void LoadEditor(string path)
     {
-        t.ReadTextFile(out string[] lines, path);
+        TXTManager.Instance.ReadTextFile(out string[] lines, path);
 
         contentUI.GetComponent<RectTransform>().sizeDelta = new Vector2(0, 20 * lines.Length + (5 * lines.Length) / 16); // ªÁ¿Ã¡Ó 10 top padding 5 bottonpadding 5
         for (int i = 0; i < lines.Length; i++)
@@ -57,7 +55,6 @@ public class EditorManager : MonoBehaviour
                     string[] tempLine = lines[i].Split(" ");
                     for (int j = 0; j < tempNoteGroup.notes.Length; j++)
                     {
-
                         if (tempLine[j + 1].Contains("0"))
                         {
                             tempNoteGroup.notes[j].isChecked = false;
@@ -66,11 +63,9 @@ public class EditorManager : MonoBehaviour
                         {
                             tempNoteGroup.notes[j].isChecked = true;
                         }
-
                     }
                     noteGroupQueue.Enqueue(tempNoteGroup);
                     tempNoteGroup.gameObject.transform.SetParent(contentUI.transform);
-                    //tempNoteGroup.gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(200, 10);
                 }
             }
         }
@@ -97,7 +92,7 @@ public class EditorManager : MonoBehaviour
             resultStringList.Add(tempString);
             index++;
         }
-        t.ModifyText(t.path, resultStringList.ToArray());
+        TXTManager.Instance.ModifyText(TXTManager.Instance.path, resultStringList.ToArray());
     }
 
     public void UndoNoteClick()

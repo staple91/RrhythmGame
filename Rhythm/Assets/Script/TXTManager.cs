@@ -11,7 +11,7 @@ enum InfoType
     Level,
     Time
 }
-public class TXTManager : MonoBehaviour
+public class TXTManager : Singleton<TXTManager>
 {
     string fileName = @"\asd.txt";
     public string path;
@@ -28,16 +28,16 @@ public class TXTManager : MonoBehaviour
         dic.Add("Level", InfoType.Level);
         dic.Add("Time", InfoType.Time);
 
-        path = Application.streamingAssetsPath + @"\" + "asd" + ".txt";
         
-        GenerateFile("asd", "dlfma", int.Parse("100"), "2" , int.Parse("30"));
+        GenerateFile("aa", int.Parse("100"), "2" , int.Parse("30"));
+        path = Application.streamingAssetsPath + @"\" + "aa" + ".txt";
         ReadTextFile(out var test, path);
         ReadHeader(test);
     }
 
-    void GenerateFile(string fileName, string name, float bpm, string level, float time)
+    void GenerateFile(string name, float bpm, string level, float time)
     {
-        FileInfo fi = new FileInfo(Application.streamingAssetsPath + @"\" + fileName + ".txt");
+        FileInfo fi = new FileInfo(Application.streamingAssetsPath + @"\" + name + ".txt");
         StreamWriter writer;
         if (!fi.Exists)
         {
@@ -70,8 +70,9 @@ public class TXTManager : MonoBehaviour
     public void ReadTextFile(out string[] strings , string path)
     {
         StreamReader streamReader = new StreamReader(path);
-        if (streamReader == null)
+        if (streamReader == StreamReader.Null)
         {
+            streamReader.Close();
             strings = null;
             return;
         }
@@ -123,9 +124,6 @@ public class TXTManager : MonoBehaviour
                 {
                     Debug.Log("readingHeader");
                 }
-
-                
-
             }
         }
         return null;
@@ -142,17 +140,27 @@ public class TXTManager : MonoBehaviour
                 SaveInfo(ref tempSongInfo, infoType, tempString[1]);
             }
         }
-        GameManager.Instance.songInfo = tempSongInfo;
+        for (int i = 0; i < songInfoData.songInfos.Count; i++)
+        {
+            if(songInfoData.songInfos[i].name == tempSongInfo.name)
+            {
+                Debug.Log("이미 존재하는 데이터입니다. 덮어씁니다.");
+                songInfoData.songInfos[i] = tempSongInfo;
+                return;
+            }
+        }
+        Debug.Log(tempSongInfo.name);
+        songInfoData.songInfos.Add(tempSongInfo);
     }
    
     void SaveInfo(ref SongInfo songInfo, InfoType infoType, string value)
     {
-        foreach(SongInfo tempSongInfo in songInfoData.songInfos)
+        /*foreach(SongInfo tempSongInfo in songInfoData.songInfos)
         {
             if (tempSongInfo.path == path)
                 return;
-        }
-
+        }*/
+        
         songInfo.path = path;
         switch(infoType)
         {

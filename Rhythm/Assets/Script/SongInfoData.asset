@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b8dbd87aeb7ace409862de7ff417e13, type: 3}
   m_Name: SongInfoData
   m_EditorClassIdentifier: 
+  songInfos: []
