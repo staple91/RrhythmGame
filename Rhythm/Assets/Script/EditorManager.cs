@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class EditorManager : MonoBehaviour
+using TMPro;
+public class EditorManager : Singleton<EditorManager>
 {
     [SerializeField]
     GameObject noteGroup;
@@ -11,6 +11,21 @@ public class EditorManager : MonoBehaviour
     [SerializeField]
     GameObject divideUI;
 
+    string currentPath;
+
+
+    [SerializeField]
+    TMP_InputField nameInput;
+    [SerializeField]
+    TMP_InputField bpmInput;
+    [SerializeField]
+    TMP_InputField timeInput;
+    [SerializeField]
+    TMP_InputField levelInput;
+
+    [SerializeField]
+    GameObject songInfoButtonObj;
+    
 
     Queue<NoteGroup> noteGroupQueue = new Queue<NoteGroup>();
 
@@ -23,24 +38,21 @@ public class EditorManager : MonoBehaviour
     public static Stack<OnClickEditorButtonDel> redoButtonDelStack = new Stack<OnClickEditorButtonDel>();
 
 
-    // Start is called before the first frame update
-    void Start()
+
+    public void EnableSongList()
     {
+        foreach(SongInfo songInfo in TXTManager.Instance.songInfoData.songInfos)
+        {
+            Instantiate(songInfoButtonObj).TryGetComponent<SongInfoButton>(out SongInfoButton songInfoButton);
+            songInfoButton.info = songInfo;
+        }
         
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.A))
-        {
-            LoadEditor(TXTManager.Instance.path);
-        }
-    }
-    void LoadEditor(string path)
+    public void LoadEditor(string path)
     {
         TXTManager.Instance.ReadTextFile(out string[] lines, path);
-
+        currentPath = path;
         contentUI.GetComponent<RectTransform>().sizeDelta = new Vector2(0, 20 * lines.Length + (5 * lines.Length) / 16); // 사이즈 10 top padding 5 bottonpadding 5
         for (int i = 0; i < lines.Length; i++)
         {
@@ -48,7 +60,7 @@ public class EditorManager : MonoBehaviour
             {
 
                 if (lines[i][0] == '#')
-                {
+                { 
                     NoteGroup tempNoteGroup = Instantiate(noteGroup).GetComponent<NoteGroup>();
                     if ((i - 6) % 16 == 0) // 6 = 헤더라인수
                         Instantiate(divideUI).transform.SetParent(contentUI.transform);
@@ -69,6 +81,11 @@ public class EditorManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void CreateFile()
+    {
+        TXTManager.Instance.GenerateFile(nameInput.text, bpmInput.text, levelInput.text, timeInput.text);
     }
 
     public void SaveLines()
@@ -92,7 +109,7 @@ public class EditorManager : MonoBehaviour
             resultStringList.Add(tempString);
             index++;
         }
-        TXTManager.Instance.ModifyText(TXTManager.Instance.path, resultStringList.ToArray());
+        TXTManager.Instance.ModifyText(currentPath, resultStringList.ToArray());
     }
 
     public void UndoNoteClick()
