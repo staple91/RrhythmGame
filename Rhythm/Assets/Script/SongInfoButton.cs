@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SongInfoButton : MonoBehaviour
 {
@@ -8,6 +9,12 @@ public class SongInfoButton : MonoBehaviour
     
     public void SelectOnEditor()
     {
-        EditorManager.Instance.LoadEditor(info.path);
+        PlayerPrefs.SetString("EditPath", info.path);
+        LoadEditScene();
+    }
+    public void LoadEditScene()
+    {
+        LoadingHelper.Instance.targetSceneName = "EditorScene";
+        SceneManager.LoadScene("LoadingScene");
     }
 }

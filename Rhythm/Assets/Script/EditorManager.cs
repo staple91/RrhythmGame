@@ -14,17 +14,6 @@ public class EditorManager : Singleton<EditorManager>
     string currentPath;
 
 
-    [SerializeField]
-    TMP_InputField nameInput;
-    [SerializeField]
-    TMP_InputField bpmInput;
-    [SerializeField]
-    TMP_InputField timeInput;
-    [SerializeField]
-    TMP_InputField levelInput;
-
-    [SerializeField]
-    GameObject songInfoButtonObj;
     
 
     Queue<NoteGroup> noteGroupQueue = new Queue<NoteGroup>();
@@ -38,16 +27,11 @@ public class EditorManager : Singleton<EditorManager>
     public static Stack<OnClickEditorButtonDel> redoButtonDelStack = new Stack<OnClickEditorButtonDel>();
 
 
-
-    public void EnableSongList()
+    private void Start()
     {
-        foreach(SongInfo songInfo in TXTManager.Instance.songInfoData.songInfos)
-        {
-            Instantiate(songInfoButtonObj).TryGetComponent<SongInfoButton>(out SongInfoButton songInfoButton);
-            songInfoButton.info = songInfo;
-        }
-        
+        LoadEditor(PlayerPrefs.GetString("EditPath"));
     }
+
 
     public void LoadEditor(string path)
     {
@@ -83,10 +67,7 @@ public class EditorManager : Singleton<EditorManager>
         }
     }
 
-    public void CreateFile()
-    {
-        TXTManager.Instance.GenerateFile(nameInput.text, bpmInput.text, levelInput.text, timeInput.text);
-    }
+    
 
     public void SaveLines()
     {

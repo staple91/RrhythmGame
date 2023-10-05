@@ -1,0 +1,1 @@
+[{"name":"fqwfwe","bpm":100,"level":100,"time":100,"path":"C:/Users/NoSinyoung/Downloads/RrhythmGame/Rhythm/Assets/StreamingAssets\\fqwfwe.txt"}]

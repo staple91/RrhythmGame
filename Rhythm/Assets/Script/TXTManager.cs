@@ -17,8 +17,11 @@ public class TXTManager : Singleton<TXTManager>
     //public string path;
     Dictionary<string, InfoType> dic = new Dictionary<string, InfoType>();
 
-    [SerializeField]
-    public SongInfoData songInfoData;
+
+    protected override void Awake()
+    {
+        base.Awake();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -147,17 +150,19 @@ public class TXTManager : Singleton<TXTManager>
                 SaveInfo(ref tempSongInfo, infoType, tempString[1]);
             }
         }
-        for (int i = 0; i < songInfoData.songInfos.Count; i++)
+        for (int i = 0; i < GameManager.Instance.songInfoList.Count; i++)
         {
-            if(songInfoData.songInfos[i].name == tempSongInfo.name)
+            if(GameManager.Instance.songInfoList[i].name == tempSongInfo.name)
             {
                 Debug.Log("이미 존재하는 데이터입니다. 덮어씁니다.");
-                songInfoData.songInfos[i] = tempSongInfo;
+                GameManager.Instance.songInfoList[i] = tempSongInfo;
+                GameManager.Instance.RefreshSongList();
                 return;
             }
         }
         Debug.Log(tempSongInfo.name);
-        songInfoData.songInfos.Add(tempSongInfo);
+        GameManager.Instance.songInfoList.Add(tempSongInfo);
+        GameManager.Instance.RefreshSongList();
     }
    
     void SaveInfo(ref SongInfo songInfo, InfoType infoType, string value)
@@ -186,4 +191,6 @@ public class TXTManager : Singleton<TXTManager>
                 break;
         }
     }
+
+    
 }
