@@ -14,11 +14,14 @@ enum InfoType
 public class TXTManager : Singleton<TXTManager>
 {
     string fileName = @"\asd.txt";
-    public string path;
+    //public string path;
     Dictionary<string, InfoType> dic = new Dictionary<string, InfoType>();
 
-    [SerializeField]
-    SongInfoData songInfoData;
+
+    protected override void Awake()
+    {
+        base.Awake();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -29,15 +32,20 @@ public class TXTManager : Singleton<TXTManager>
         dic.Add("Time", InfoType.Time);
 
         
-        GenerateFile("aa", int.Parse("100"), "2" , int.Parse("30"));
-        path = Application.streamingAssetsPath + @"\" + "aa" + ".txt";
-        ReadTextFile(out var test, path);
-        ReadHeader(test);
+        //GenerateFile("aa", "100", "2" , "30");
+        //path = Application.streamingAssetsPath + @"\" + "aa" + ".txt";
+        //ReadTextFile(out var test, path);
+        //ReadHeader(test);
     }
 
-    void GenerateFile(string name, float bpm, string level, float time)
+    public string GetPath(string fileName)
     {
-        FileInfo fi = new FileInfo(Application.streamingAssetsPath + @"\" + name + ".txt");
+        return (Application.streamingAssetsPath + @"\" + fileName + ".txt");
+    }
+
+    public void GenerateFile(string name, string bpm, string level, string time)
+    {
+        FileInfo fi = new FileInfo(GetPath(name));
         StreamWriter writer;
         if (!fi.Exists)
         {
@@ -54,19 +62,21 @@ public class TXTManager : Singleton<TXTManager>
         writer.WriteLine("Level:" + level);
         writer.WriteLine("Time:" + time);
         writer.WriteLine("ENDHEADER");
-        for (int i = 0; i < bpm / 60 * time; i++)
+        for (int i = 0; i < int.Parse(bpm) / 60 * int.Parse(time); i++)
         {
             for (int j = 0; j < 16; j++)
             {
-                if (i == (bpm / 60 * time - 1) && j == 15)
+                if (i == (int.Parse(bpm) / 60 * int.Parse(time) - 1) && j == 15)
                     writer.Write("#" + i.ToString("D3") + j.ToString("D2") + " 0 0 0 0 0");
                 else
                     writer.WriteLine("#" + i.ToString("D3") + j.ToString("D2") + " 0 0 0 0 0");
             }
         }
         writer.Close();
+        ReadTextFile(out string[] tempLines, GetPath(name));
+        ReadHeader(tempLines);
     }
-    // 
+
     public void ReadTextFile(out string[] strings , string path)
     {
         StreamReader streamReader = new StreamReader(path);
@@ -140,17 +150,19 @@ public class TXTManager : Singleton<TXTManager>
                 SaveInfo(ref tempSongInfo, infoType, tempString[1]);
             }
         }
-        for (int i = 0; i < songInfoData.songInfos.Count; i++)
+        for (int i = 0; i < GameManager.Instance.songInfoList.Count; i++)
         {
-            if(songInfoData.songInfos[i].name == tempSongInfo.name)
+            if(GameManager.Instance.songInfoList[i].name == tempSongInfo.name)
             {
                 Debug.Log("이미 존재하는 데이터입니다. 덮어씁니다.");
-                songInfoData.songInfos[i] = tempSongInfo;
+                GameManager.Instance.songInfoList[i] = tempSongInfo;
+                GameManager.Instance.RefreshSongList();
                 return;
             }
         }
         Debug.Log(tempSongInfo.name);
-        songInfoData.songInfos.Add(tempSongInfo);
+        GameManager.Instance.songInfoList.Add(tempSongInfo);
+        GameManager.Instance.RefreshSongList();
     }
    
     void SaveInfo(ref SongInfo songInfo, InfoType infoType, string value)
@@ -161,10 +173,11 @@ public class TXTManager : Singleton<TXTManager>
                 return;
         }*/
         
-        songInfo.path = path;
+        
         switch(infoType)
         {
             case InfoType.Name:
+                songInfo.path = GetPath(value);
                 songInfo.name = value;
                 break;
             case InfoType.Bpm:
@@ -178,4 +191,6 @@ public class TXTManager : Singleton<TXTManager>
                 break;
         }
     }
+
+    
 }

@@ -11,22 +11,21 @@ public class NoteSpawner : MonoBehaviour
     [SerializeField]
     GameObject note;
 
-    [SerializeField]
-    TXTManager t;
 
 
     public static List<Queue<Note>> noteQueueList = new List<Queue<Note>>();
 
     string[] noteArr;
 
-    private void Start()
+    void InitNoteSpawner(string path)
     {
-        t.ReadTextFile(out noteArr, t.path);
+        TXTManager.Instance.ReadTextFile(out noteArr, path);
         for (int i = 0; i < 5; i++) // 5 = ¶óÀÎ¼ö
         {
             noteQueueList.Add(new Queue<Note>());
         }
         StartCoroutine(SpawnNote());
+
     }
 
     IEnumerator SpawnNote()
