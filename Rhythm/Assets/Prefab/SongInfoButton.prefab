@@ -173,7 +173,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -641.9, y: -242.27002}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6220770987386391033
@@ -260,7 +260,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: -3651235535990335284}
         m_TargetAssemblyTypeName: SongInfoButton, Assembly-CSharp
-        m_MethodName: SelectOnEditor
+        m_MethodName: SelectSong
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class NoteSpawner : MonoBehaviour
 {
+    float waitTime = 5f;
+    [SerializeField]
+    AudioSource audio;
+
+
     [SerializeField]
     Transform[] spawnPoint;
     [SerializeField]
@@ -17,21 +22,33 @@ public class NoteSpawner : MonoBehaviour
 
     string[] noteArr;
 
+    private void Start()
+    {
+        InitNoteSpawner(PlayerPrefs.GetString("Path"));
+    }
+
     void InitNoteSpawner(string path)
     {
+        
         TXTManager.Instance.ReadTextFile(out noteArr, path);
         for (int i = 0; i < 5; i++) // 5 = 라인수
         {
             noteQueueList.Add(new Queue<Note>());
         }
         StartCoroutine(SpawnNote());
+        StartCoroutine(playSongCo());
 
     }
-
+    IEnumerator playSongCo()
+    {
+        yield return new WaitForSeconds(waitTime);
+        audio.Play();
+    }
     IEnumerator SpawnNote()
     {
-        Debug.Log(5 - (dirPoint[0].position - spawnPoint[0].position).magnitude / note.GetComponent<Note>().speed);
-        yield return new WaitForSeconds(5 - (dirPoint[0].position - spawnPoint[0].position).magnitude / note.GetComponent<Note>().speed);
+        Debug.Log(waitTime - (dirPoint[0].position - spawnPoint[0].position).magnitude / note.GetComponent<Note>().speed);
+        float noteSpawnTime = waitTime - (dirPoint[0].position - spawnPoint[0].position).magnitude / note.GetComponent<Note>().speed;
+        yield return new WaitForSeconds(noteSpawnTime);
         // 6 = 헤더길이
         for (int i = 6; i < noteArr.Length; i++)
         {
@@ -50,7 +67,7 @@ public class NoteSpawner : MonoBehaviour
             }
             Debug.Log(GameManager.Instance.songInfo.bpm);
             Debug.Log(GameManager.Instance.songInfo.time);
-            yield return new WaitForSeconds((float)60 / (GameManager.Instance.songInfo.bpm*16));
+            yield return new WaitForSeconds((float)60 / (GameManager.Instance.songInfo.bpm * 16));
         }
         yield return null;
     }

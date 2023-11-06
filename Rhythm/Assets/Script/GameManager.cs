@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Newtonsoft.Json;
 using System.IO;
 
@@ -30,12 +31,18 @@ public class GameManager : Singleton<GameManager>
     {
         base.Awake();
         Init();
+        songInfo = new SongInfo();
+        SceneManager.sceneLoaded += Init;
+        DontDestroyOnLoad(gameObject);
     }
     void Init()
     {
-        DontDestroyOnLoad(gameObject);
         combo = 0;
-        songInfo = new SongInfo();
+        ReadJason();
+    }
+    void Init(Scene scnen, LoadSceneMode mode)
+    {
+        combo = 0;
         ReadJason();
     }
     void ReadJason()

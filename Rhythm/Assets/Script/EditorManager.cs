@@ -1,18 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 public class EditorManager : Singleton<EditorManager>
 {
+    [SerializeField]
+    AudioSource audio;
     [SerializeField]
     GameObject noteGroup;
     [SerializeField]
     GameObject contentUI;
     [SerializeField]
     GameObject divideUI;
+    [SerializeField]
+    Scrollbar scroll;
 
     string currentPath;
 
+    Coroutine playSongCo;
 
     
 
@@ -29,16 +35,35 @@ public class EditorManager : Singleton<EditorManager>
 
     private void Start()
     {
-        LoadEditor(PlayerPrefs.GetString("EditPath"));
+        LoadEditor(PlayerPrefs.GetString("Path"));
     }
 
-
+    public void StartSong()
+    {
+        audio.time = scroll.value * audio.clip.length;
+        audio.Play();
+        playSongCo = StartCoroutine(PlaySongCo());
+    }
+    public void StopSong()
+    {
+        if(playSongCo != null)
+            StopCoroutine(playSongCo);
+        audio.Stop();
+    }
+    IEnumerator PlaySongCo()
+    {
+        while(true)
+        {
+            scroll.value = audio.time / audio.clip.length;
+            yield return null;
+        }
+    }
     public void LoadEditor(string path)
     {
         TXTManager.Instance.ReadTextFile(out string[] lines, path);
         currentPath = path;
         contentUI.GetComponent<RectTransform>().sizeDelta = new Vector2(0, 20 * lines.Length + (5 * lines.Length) / 16); // 사이즈 10 top padding 5 bottonpadding 5
-        for (int i = 0; i < lines.Length; i++)
+        for (int i = lines.Length - 1; i >= 0; i--)
         {
             if(lines[i].Length > 0)
             {
@@ -46,7 +71,7 @@ public class EditorManager : Singleton<EditorManager>
                 if (lines[i][0] == '#')
                 { 
                     NoteGroup tempNoteGroup = Instantiate(noteGroup).GetComponent<NoteGroup>();
-                    if ((i - 6) % 16 == 0) // 6 = 헤더라인수
+                    if ((i - 5) % 16 == 0) // 6 = 헤더라인수
                         Instantiate(divideUI).transform.SetParent(contentUI.transform);
                     string[] tempLine = lines[i].Split(" ");
                     for (int j = 0; j < tempNoteGroup.notes.Length; j++)
@@ -75,7 +100,7 @@ public class EditorManager : Singleton<EditorManager>
         int index = 0;
         foreach(NoteGroup noteGroup in noteGroupQueue)
         {
-            string tempString = "#"+(index / 16).ToString("D3") + (index % 16).ToString("D2") ;
+            string tempString = "#" + (index / 16).ToString("D3") + (index % 16).ToString("D2") ;
             for (int i = 0; i < noteGroup.notes.Length; i++)
             {
                 if(noteGroup.notes[i].isChecked)

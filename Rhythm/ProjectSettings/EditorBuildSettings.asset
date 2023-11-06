@@ -15,9 +15,12 @@ EditorBuildSettings:
     path: Assets/Scenes/GameSelectScene.unity
     guid: bb2dd7aaa2d10ea4685a9eeba2b04107
   - enabled: 1
-    path: Assets/Scenes/InGame.unity
+    path: Assets/Scenes/GameScene.unity
     guid: 89694c5c022b7fa449dc02aacd8b3c42
   - enabled: 1
     path: Assets/Scenes/LoadingScene.unity
     guid: 7e0c649f38b90344f9e77e7503fd8551
+  - enabled: 1
+    path: Assets/Scenes/StartScene.unity
+    guid: fb090918e869bc84dbf45bf272839a17
   m_configObjects: {}

@@ -7,14 +7,23 @@ public class SongInfoButton : MonoBehaviour
 {
     public SongInfo info;
     
-    public void SelectOnEditor()
+    public void SelectSong()
     {
-        PlayerPrefs.SetString("EditPath", info.path);
-        LoadEditScene();
+        GameManager.Instance.songInfo = info;
+        PlayerPrefs.SetString("Path", info.path);
+        LoadScene();
     }
-    public void LoadEditScene()
+    public void LoadScene()
     {
-        LoadingHelper.Instance.targetSceneName = "EditorScene";
-        SceneManager.LoadScene("LoadingScene");
+        if(LoadingHelper.Instance.targetSceneName == "EditorSelectScene")
+        {   
+            LoadingHelper.Instance.targetSceneName = "EditorScene";
+            SceneManager.LoadScene("LoadingScene");
+        }
+        else if (LoadingHelper.Instance.targetSceneName == "GameSelectScene")
+        {
+            LoadingHelper.Instance.targetSceneName = "GameScene";
+            SceneManager.LoadScene("LoadingScene"); 
+        }
     }
 }

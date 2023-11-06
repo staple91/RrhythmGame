@@ -30,17 +30,11 @@ public class TXTManager : Singleton<TXTManager>
         dic.Add("Bpm", InfoType.Bpm);
         dic.Add("Level", InfoType.Level);
         dic.Add("Time", InfoType.Time);
-
-        
-        //GenerateFile("aa", "100", "2" , "30");
-        //path = Application.streamingAssetsPath + @"\" + "aa" + ".txt";
-        //ReadTextFile(out var test, path);
-        //ReadHeader(test);
     }
 
     public string GetPath(string fileName)
     {
-        return (Application.streamingAssetsPath + @"\" + fileName + ".txt");
+        return (Application.streamingAssetsPath + @"\" + fileName + ".txt"); 
     }
 
     public void GenerateFile(string name, string bpm, string level, string time)
@@ -167,12 +161,6 @@ public class TXTManager : Singleton<TXTManager>
    
     void SaveInfo(ref SongInfo songInfo, InfoType infoType, string value)
     {
-        /*foreach(SongInfo tempSongInfo in songInfoData.songInfos)
-        {
-            if (tempSongInfo.path == path)
-                return;
-        }*/
-        
         
         switch(infoType)
         {

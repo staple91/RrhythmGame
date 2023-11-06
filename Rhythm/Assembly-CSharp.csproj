@@ -57,8 +57,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Script\SongInfoButton.cs" />
-    <Compile Include="Assets\Script\EditorSelectManager.cs" />
+    <Compile Include="Assets\Script\SelectManager.cs" />
     <Compile Include="Assets\Script\EditorNote.cs" />
+    <Compile Include="Assets\Script\StartManager.cs" />
     <Compile Include="Assets\Script\LoadingComponent.cs" />
     <Compile Include="Assets\Script\Singleton.cs" />
     <Compile Include="Assets\Script\TXTManager.cs" />
@@ -72,11 +73,11 @@
     <Compile Include="Assets\Script\NoteSpawner.cs" />
     <Compile Include="Assets\Script\UIManager.cs" />
     <Compile Include="Assets\Script\NoteGroup.cs" />
+    <Compile Include="Assets\Script\SoundManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
-    <None Include="Assets\StreamingAssets\fqwfwe.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Mobile.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF SSD.shader" />
@@ -91,7 +92,6 @@
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Properties.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Surface.cginc" />
-    <None Include="Assets\StreamingAssets\a.txt" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF Overlay.shader" />

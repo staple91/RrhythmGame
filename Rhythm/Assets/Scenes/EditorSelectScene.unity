@@ -132,7 +132,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 86488402}
-  - component: {fileID: 86488401}
+  - component: {fileID: 86488403}
   m_Layer: 0
   m_Name: EditorSelectManager
   m_TagString: Untagged
@@ -140,7 +140,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &86488401
+--- !u!4 &86488402
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 86488400}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &86488403
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -157,21 +172,7 @@ MonoBehaviour:
   timeInput: {fileID: 943490258}
   levelInput: {fileID: 1187031448}
   songInfoButtonObj: {fileID: 688881192264985361, guid: 36422cd2cca52c94986d080e3a33a1c7, type: 3}
---- !u!4 &86488402
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 86488400}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1299.1436, y: 406.0472, z: 806.4542}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  canvasTr: {fileID: 284040893}
 --- !u!1 &104508717
 GameObject:
   m_ObjectHideFlags: 0
@@ -1530,7 +1531,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 86488401}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: EditorSelectManager, Assembly-CSharp
         m_MethodName: CreateFile
         m_Mode: 1
@@ -3120,7 +3121,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 86488401}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: EditorSelectManager, Assembly-CSharp
         m_MethodName: EnableSongList
         m_Mode: 1

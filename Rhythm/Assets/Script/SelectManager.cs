@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-public class EditorSelectManager : MonoBehaviour
+public class SelectManager : MonoBehaviour
 {
     [Header("Input Fields")]
     [SerializeField]
@@ -16,8 +16,13 @@ public class EditorSelectManager : MonoBehaviour
 
     [SerializeField]
     GameObject songInfoButtonObj;
+    [SerializeField]
+    Transform canvasTr;
 
-
+    private void Start()
+    {
+        EnableSongList();
+    }
     public void CreateFile()
     {
         TXTManager.Instance.GenerateFile(nameInput.text, bpmInput.text, levelInput.text, timeInput.text);
@@ -27,8 +32,11 @@ public class EditorSelectManager : MonoBehaviour
     {
         foreach (SongInfo songInfo in GameManager.Instance.songInfoList)
         {
-            Instantiate(songInfoButtonObj).TryGetComponent<SongInfoButton>(out SongInfoButton songInfoButton);
+            GameObject buttonObj = Instantiate(songInfoButtonObj);
+            buttonObj.TryGetComponent<SongInfoButton>(out SongInfoButton songInfoButton);
+            buttonObj.transform.SetParent(canvasTr);
             songInfoButton.info = songInfo;
+
         }
     }
     
