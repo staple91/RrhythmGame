@@ -5,20 +5,34 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 638348545351774660
-    m_Hash: 2248060103
+      ticks: 638349374256632669
+    m_Hash: 2648733104
   m_LockFileStatus:
     m_FilePath: C:/Users/NoSinyoung/Documents/GitHub/RrhythmGame/Rhythm/Packages/packages-lock.json
     m_PathExists: 1
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 638348545351774660
-    m_Hash: 15775840
+      ticks: 638349374256754964
+    m_Hash: 2712960636
 m_EmbeddedPackageManifests:
   m_ManifestsStatus: {}
 m_LocalPackages:
-  m_LocalFileStatus: []
+  m_LocalFileStatus:
+  - m_FilePath: C:\Users\NoSinyoung\Downloads\UnitySimpleFileBrowser-master\UnitySimpleFileBrowser-master/package.json
+    m_PathExists: 1
+    m_ContentTrackingEnabled: 1
+    m_ModificationDate:
+      serializedVersion: 2
+      ticks: 638349373885181686
+    m_Hash: 1081274101
+  - m_FilePath: C:\Users\NoSinyoung\Downloads\UnitySimpleFileBrowser-master\UnitySimpleFileBrowser-master
+    m_PathExists: 1
+    m_ContentTrackingEnabled: 1
+    m_ModificationDate:
+      serializedVersion: 2
+      ticks: 0
+    m_Hash: 0
 m_ProjectPath: C:/Users/NoSinyoung/Documents/GitHub/RrhythmGame/Rhythm/Packages
 m_EditorVersion: 2021.3.16f1 (4016570cf34f)
 m_ResolvedPackages:
@@ -951,6 +965,53 @@ m_ResolvedPackages:
     path: 
   unityLifecycle:
     version: 1.7.8
+    nextVersion: 
+- packageId: com.yasirkula.simplefilebrowser@file:C:\Users\NoSinyoung\Downloads\UnitySimpleFileBrowser-master\UnitySimpleFileBrowser-master
+  testable: 0
+  isDirectDependency: 1
+  version: 1.6.2
+  source: 4
+  resolvedPath: C:\Users\NoSinyoung\Downloads\UnitySimpleFileBrowser-master\UnitySimpleFileBrowser-master
+  assetPath: Packages/com.yasirkula.simplefilebrowser
+  name: com.yasirkula.simplefilebrowser
+  displayName: Simple File Browser
+  author:
+    name: 
+    email: 
+    url: 
+  category: 
+  type: 
+  description: This plugin helps you show save/load dialogs during gameplay with
+    its uGUI based file browser.
+  status: 0
+  errors: []
+  versions:
+    all: []
+    compatible: []
+    verified: 
+  dependencies: []
+  resolvedDependencies: []
+  keywords: []
+  registry:
+    id: main
+    name: 
+    url: https://packages.unity.com
+    scopes: []
+    isDefault: 1
+    capabilities: 7
+    configSource: 0
+  hideInEditor: 1
+  isAssetStorePackage: 0
+  datePublishedTicks: 0
+  documentationUrl: https://github.com/yasirkula/UnitySimpleFileBrowser
+  hasRepository: 0
+  repository:
+    type: 
+    url: 
+    revision: 
+    path: 
+  unityLifecycle:
+    version: 
     nextVersion: 
 - packageId: com.unity.modules.ai@1.0.0
   testable: 0

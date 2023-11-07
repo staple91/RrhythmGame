@@ -35,6 +35,7 @@ public class EditorManager : Singleton<EditorManager>
 
     private void Start()
     {
+        scroll.value = 0;
         LoadEditor(PlayerPrefs.GetString("Path"));
     }
 

@@ -21,7 +21,7 @@ public class GameManager : Singleton<GameManager>
     public SongInfo songInfo;
 
 
-    string jsonFilePath = (Application.streamingAssetsPath + @"\" + "JsonFile" + ".txt");
+    string jsonFilePath;
 
     public List<SongInfo> songInfoList;
 
@@ -37,13 +37,13 @@ public class GameManager : Singleton<GameManager>
     }
     void Init()
     {
+        jsonFilePath = (Application.dataPath + @"\Resources\" + "JsonFile" + ".txt");
         combo = 0;
         ReadJason();
     }
     void Init(Scene scnen, LoadSceneMode mode)
     {
-        combo = 0;
-        ReadJason();
+        Init();
     }
     void ReadJason()
     {

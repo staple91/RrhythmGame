@@ -34,7 +34,7 @@ public class TXTManager : Singleton<TXTManager>
 
     public string GetPath(string fileName)
     {
-        return (Application.streamingAssetsPath + @"\" + fileName + ".txt"); 
+        return (Application.dataPath + @"\Resources\" + fileName + ".txt"); 
     }
 
     public void GenerateFile(string name, string bpm, string level, string time)

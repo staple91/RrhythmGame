@@ -1,0 +1,6 @@
+HEADER
+Name:아아
+Bpm:50
+Level:50
+Time:50
+ENDHEADER

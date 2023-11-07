@@ -64,6 +64,7 @@
     <Compile Include="Assets\Script\Singleton.cs" />
     <Compile Include="Assets\Script\TXTManager.cs" />
     <Compile Include="Assets\Script\JudgeComponent.cs" />
+    <Compile Include="Assets\Script\SoundManager.cs" />
     <Compile Include="Assets\Script\JudgeManager.cs" />
     <Compile Include="Assets\Script\LoadingHelper.cs" />
     <Compile Include="Assets\Script\EditorManager.cs" />
@@ -73,17 +74,19 @@
     <Compile Include="Assets\Script\NoteSpawner.cs" />
     <Compile Include="Assets\Script\UIManager.cs" />
     <Compile Include="Assets\Script\NoteGroup.cs" />
-    <Compile Include="Assets\Script\SoundManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
+    <None Include="Assets\Resources\120.txt" />
+    <None Include="Assets\Resources\12.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Mobile.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF SSD.shader" />
-    <None Include="Assets\StreamingAssets\asd.txt" />
+    <None Include="Assets\Resources\asd.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface-Mobile.shader" />
-    <None Include="Assets\StreamingAssets\JsonFile.txt" />
+    <None Include="Assets\Resources\아아.txt" />
+    <None Include="Assets\Resources\JsonFile.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface.shader" />
     <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
@@ -805,6 +808,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="SimpleFileBrowser.Runtime.csproj">
+      <Project>{2E118DBD-B668-2302-9B26-0CA525F63507}</Project>
+      <Name>SimpleFileBrowser.Runtime</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

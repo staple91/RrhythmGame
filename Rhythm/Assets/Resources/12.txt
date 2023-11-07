@@ -1,0 +1,6 @@
+HEADER
+Name:12
+Bpm:12
+Level:12
+Time:12
+ENDHEADER
